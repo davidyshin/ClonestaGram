@@ -120,11 +120,10 @@ function editUser(req, res, next) {
   const hash = authHelpers.createHashPassword(req.body.password);
   db
     .none(
-      "UPDATE users SET email = ${email}, full_name=${fullName}, password_digest=${password}, profile_pic=${profile_pic} WHERE id=${id}",
+      "UPDATE users SET email = ${email}, full_name=${fullName}, profile_pic=${profile_pic} WHERE id=${id}",
       {
         email: req.body.email,
         fullName: req.body.fullName,
-        password: hash,
         profile_pic: req.body.profile_pic,
         id: req.body.id
       }

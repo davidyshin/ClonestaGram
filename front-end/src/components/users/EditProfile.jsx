@@ -46,7 +46,6 @@ class EditProfile extends Component {
         .post('/users/edit', {
           email: email,
           fullName: fullName,
-          password: password,
           profile_pic: profile_pic,
           id: id
         })
@@ -96,22 +95,12 @@ class EditProfile extends Component {
             <br />
             <input
               className="input-box"
-              name="password"
-              type="password"
-              value={password}
-              onChange={this.handleInput}
-              placeholder="Password"
-              maxLength="30"
-            />
-            <br />
-            <input
-              className="input-box"
               name="profile_pic"
               type="text"
               value={profile_pic}
               onChange={this.handleInput}
               placeholder="Profile Picture"
-              maxLength="30"
+              maxLength="99"
             />
             <br />
             <button onClick={this.handleSubmit} id="edit-profile-btn">Edit Profile</button>

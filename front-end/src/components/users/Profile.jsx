@@ -19,7 +19,8 @@ class Profile extends React.Component {
       followerListIsOpen: false,
       followingListIsOpen: false,
       likes: "",
-      active: true
+      active: true,
+
     };
   }
 
@@ -77,7 +78,7 @@ class Profile extends React.Component {
         <h1>FOLLOWERS</h1>
         <ul>
           {followers.map(user => {
-            return <li><Link to={`/user/${user.follower_id}`}>{user.username}</Link></li>;
+            return <li><a href={`/user/${user.follower_id}`}>{user.username}</a></li>;
           })}
         </ul>
         <button onClick={this.toggleFollowerModal}>cancel</button>
@@ -92,7 +93,7 @@ class Profile extends React.Component {
         <h1>FOLLOWING</h1>
         <ul>
           {following.map(user => {
-            return <li><Link to={`/user/${user.followee_id}`}>{user.username}</Link></li>;
+            return <li><a href={`/user/${user.followee_id}`}>{user.username}</a></li>;
           })}
         </ul>
         <button onClick={this.toggleFollowingModal}>cancel</button>

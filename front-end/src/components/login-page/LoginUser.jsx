@@ -55,7 +55,7 @@ class LoginUser extends React.Component {
     return (
       <div className="login-container">
         <div id="login-box">
-          <h1 id="app-name"> Self-ish </h1>
+          <h1 id="app-name"> ClonestaGram </h1>
           <input
             name="username"
             type="text"
@@ -78,7 +78,7 @@ class LoginUser extends React.Component {
             Log in
           </button>
           <br />
-          <button onClick={this.handleDemo}>Demo Log in</button>
+          <button class="button" onClick={this.handleDemo}>Demo Log in</button>
           <br />
           {message}
           <p>

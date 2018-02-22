@@ -18,14 +18,14 @@ class UserProfile extends React.Component {
       followerListIsOpen: false,
       followingListIsOpen: false,
       likes: "",
-      active: true
+      active: true,
+      userIsFollowing: false
     };
   }
 
   componentDidMount() {
     const id = this.props.match.params.id;
-    let fetchedStats = 
-    axios.get(`/users/getFollowersCount/${id}`).then(res => {
+    let fetchedStats = axios.get(`/users/getFollowersCount/${id}`).then(res => {
       fetchedStats.followingCount = res.data.followerInfo.count;
     });
     axios.get(`/users/getFolloweesCount/${id}`).then(res => {
@@ -35,11 +35,13 @@ class UserProfile extends React.Component {
         followingCount: fetchedStats.followingCount
       });
     });
-    axios.get(`/users/getFollowees/${id}`).then(res => {
-      this.setState({
-        followers: [...res.data.data]
-      });
-    });
+    axios
+      .get(`/users/getFollowees/${id}`)
+      .then(res => {
+        this.setState({
+          followers: [...res.data.data]
+        });
+      })
     axios.get(`/users/getFollowers/${id}`).then(res => {
       this.setState({
         following: [...res.data.data]
@@ -52,9 +54,10 @@ class UserProfile extends React.Component {
     axios.get(`/users/getUserPost/${id}`).then(res => {
       this.setState({ posts: res.data.userPost.reverse() });
     });
-    axios.get(`/users/getSingleUser/${id}`).then(res=>{
-        this.setState({user: res.data.user})
-    })
+    axios.get(`/users/getSingleUser/${id}`).then(res => {
+      this.setState({ user: res.data.user });
+    });
+    // axios.get()
   }
 
   toggleFollowerModal = () => {
@@ -72,12 +75,17 @@ class UserProfile extends React.Component {
   Follower = () => {
     const { user } = this.props;
     const { followers } = this.state;
+
     return (
       <div>
         <h1>FOLLOWERS</h1>
         <ul>
           {followers.map(user => {
-            return <li>{user.username}</li>;
+            return (
+              <li>
+                <a href={`/user/${user.follower_id}`}>{user.username}</a>
+              </li>
+            );
           })}
         </ul>
         <button onClick={this.toggleFollowerModal}>cancel</button>
@@ -92,7 +100,11 @@ class UserProfile extends React.Component {
         <h1>FOLLOWING</h1>
         <ul>
           {following.map(user => {
-            return <li>{user.username}</li>;
+            return (
+              <li>
+                <a href={`/user/${user.followee_id}`}>{user.username}</a>
+              </li>
+            );
           })}
         </ul>
         <button onClick={this.toggleFollowingModal}>cancel</button>
@@ -100,8 +112,9 @@ class UserProfile extends React.Component {
     );
   };
   followUser = () => {
-    const {user} = this.props;
-  }
+    const { user } = this.props;
+    const id = this.props.match.params.id;
+  };
 
   render() {
     const {
@@ -113,6 +126,7 @@ class UserProfile extends React.Component {
       user,
       posts
     } = this.state;
+    console.log(this.state.userIsFollowing)
     return (
       <div className="profile-container">
         <div className="user-bar">
@@ -123,7 +137,7 @@ class UserProfile extends React.Component {
             <div className="row-one">
               <h1>{user.username}</h1>
               <button onClick={this.followUser} className="follow-profile">
-                Follow
+                {this.state.userIsFollowing ? "Unfollow" : "Follow"}
               </button>
             </div>
             <div className="row-two">
