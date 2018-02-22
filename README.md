@@ -9,10 +9,10 @@ A work-in-progress Instagram clone built using HTML/CSS and Javascript ES6 incor
 ## Preview
 
 Login Page:
-![login-register](.frontend/public/login-register.png)
+![login-register](.front-end/public/login-register.png)
 
 Profile Page:
-![profile](.frontend/public/profile.png)
+![profile](.front-end/public/profile.png)
 
 
 ## Built using: 
